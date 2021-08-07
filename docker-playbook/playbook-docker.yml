@@ -1,0 +1,19 @@
+-
+  name: 'Do Ansible and check the docker status'
+  hosts: 'localhost'
+  vars:
+    docker_diskchk: 'df -hT'
+  tasks:
+    - 
+      name: "Check the docker status to ensure docker is running"
+      service:
+        name: docker
+        state: started
+    -
+      name: "Print list of images available on remote host"
+      command: docker image ls
+    -
+      name: "Start the docker container"
+      docker_container:
+        name: nginx_test1
+        state: started

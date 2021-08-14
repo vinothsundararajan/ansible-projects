@@ -3,10 +3,10 @@
   tasks:
     - name: Execute Current date and time.
       command: date
-    - name: upgrade all packages
-      yum:
-        name: '*'
-        state: latest
+#    - name: upgrade all packages
+#      yum:
+#        name: '*'
+#        state: latest
 #    - name: Remove httpd and to test.
 #      yum:
 #        name: httpd
@@ -21,6 +21,10 @@
         zone: public
         port: 80/tcp
         state: enabled
+    - name: Copy sample templates to remote server. 
+      copy:
+        src: /opt/webpages/freehtml/ 
+        dest: /var/www/html
     - name: Start httpd service to run httpd
       service:
         name: httpd

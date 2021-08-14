@@ -3,19 +3,25 @@
   tasks:
     - name: Execute Current date and time.
       command: date
-    - name: Execute yum update to install httpd
-      command: yum update all -y
-    - name: Remove httpd and to test.
+    - name: upgrade all packages
       yum:
-        name: httpd
-        autoremove: yes
-        state: absent
-#    - name: Execute httpd to install
+        name: '*'
+        state: latest
+#    - name: Remove httpd and to test.
 #      yum:
 #        name: httpd
-#        state: present
-#    - name: Start httpd service to run httpd
-#      service:
-#        name: httpd
-#        state: started
-
+#        autoremove: yes
+#        state: absent
+    - name: Execute httpd to install
+      yum:
+        name: httpd
+        state: present
+    - name: "Enable Firewall port to access 80"
+      firewalld:
+        zone: public
+        port: 80/tcp
+        state: enabled
+    - name: Start httpd service to run httpd
+      service:
+        name: httpd
+        state: started
